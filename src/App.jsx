@@ -20,9 +20,7 @@ function App() {
         }
       );
       const data = await response.json();
-      useData(data.data);
-      console.log(data);
-      console.log(data,data1);
+      useData(data);
 
       const response1 = await fetch('/api/fetchdays', {
         method: 'POST',
@@ -30,7 +28,7 @@ function App() {
         body: JSON.stringify(coord)
       });
       const data1 = await response1.json();
-      useDatadays(data1.data);
+      useDatadays(data1);
     }
     catch (error) {
       console.log(error);
