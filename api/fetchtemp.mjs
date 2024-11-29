@@ -13,7 +13,7 @@ export async function POST(request){
     }
     catch(error){
         return new Response(JSON.stringify({ error: "Error in Fetching", details: error.message }), {
-            status: 200,
+            status: 500,
             headers: {"Content-Type" : "application/json"}
         });
     }
