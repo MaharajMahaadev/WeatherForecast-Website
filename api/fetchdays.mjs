@@ -4,7 +4,7 @@ export async function POST(request){
         const requestBody = await request.json();
         const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${requestBody[0]}&lon=${requestBody[1]}&units=metric&appid=` + process.env.API_KEY;
         const result = await fetch(url);
-        const data = result.json();
+        const data = await result.json();
 
         return new Response(data, {
             status: 200,
