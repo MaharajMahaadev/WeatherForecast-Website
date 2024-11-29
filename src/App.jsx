@@ -10,15 +10,22 @@ function App() {
   const [coord, useCoord] = useState([0, 0]);
   const [ place, usePlace ] = useState('Null Island');
 
-  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${coord[0]}&lon=${coord[1]}&units=metric&appid=d79e73e2c2c8e10dc60ec01e43211e51`;
-  const urlDays = `https://api.openweathermap.org/data/2.5/forecast?lat=${coord[0]}&lon=${coord[1]}&units=metric&appid=d79e73e2c2c8e10dc60ec01e43211e51`;
-
   const val = async () => {
     try {
-      const response = await fetch(url);
+      const response = await fetch('/api/fetchtemp', 
+        {
+          method: 'POST',
+          headers: { 'Content-Type' : 'application/json'},
+          body: JSON.stringify(coord)
+        }
+      );
       const data = await response.json();
       useData(data);
-      const response1 = await fetch(urlDays);
+      const response1 = await fetch('/api/fetchdays', {
+        method: 'POST',
+        headers: { 'Content-Type' : 'application/json'},
+        body: JSON.stringify(coord)
+      });
       const data1 = await response1.json();
       useDatadays(data1);
     }
@@ -36,17 +43,18 @@ function App() {
 
   if (bt) {
     return (
-      <p>Load Load Load!!!</p>
+      <body className='bg-gradient-to-b from-blue-300 to-yellow-200 p-10 w-full'>
+        <p>Loading, Please Wait!!!</p>
+      </body>
     )
   }
 
   else {
     return (
       <body className='bg-gradient-to-b from-blue-300 to-yellow-200 p-10 w-full'>
-        <div className='inline-flex justify-between items-center w-full p-2'>
-          <p className='w-2/12 font-extrabold bg-yellow-200 p-2 bg-opacity-75'>Weather Forecast</p>
+        <div className='inline-flex gap-[25%] items-center w-full p-2'>
+          <a href="/" className='w-2/12 font-extrabold text-yellow-200 text-xl p-2 bg-opacity-75'>Weather Forecast</a>
           <Search useCoord={useCoord} usePlace={usePlace}/>
-          <button className='bg-yellow-200 w-1/12 p-2 bg-opacity-75'>Maps</button>
         </div>
         <Som data={data} dataDays={dataDays} place={place}/>
         <LineChart dataDays={dataDays}/>

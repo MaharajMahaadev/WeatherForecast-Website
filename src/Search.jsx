@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import cities from "./data";
 
 function Search({ useCoord, usePlace }) {
@@ -31,9 +31,15 @@ function Search({ useCoord, usePlace }) {
         usePlace(temp.Cities + "," + temp.Country);
 
         try {
-            const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${temp.Cities + "," + temp.iso2}&appid=d79e73e2c2c8e10dc60ec01e43211e51`);
-            const weird = await response.json();
-            useCoord([weird[0].lat, weird[0].lon]);
+            const response = await fetch('/api/fetchiso', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({city: temp.Cities, iso2: temp.iso2})
+            });
+            const res = await response.json();
+            useCoord([res[0].lat || 0, res[0].lon] || 0);
         }
         catch (error) {
             console.log(error);
@@ -45,7 +51,7 @@ function Search({ useCoord, usePlace }) {
             <input className="border-2 border-yellow-100 focus:ring-yellow-100 focus:ring-1 focus:outline-none" placeholder="Search Cities" onChange={funcCities} type="search"></input>
             {
                 suggestions.length > 0 && (
-                    <ul className='bg-blue-100 bg-opacity-95 z-10 absolute min-h-fit max-h-screen overflow-scroll'>
+                    <ul className='bg-blue-100 bg-opacity-95 z-10 absolute overflow-scroll h-[70vh]'>
                         {suggestions.map((suggestion, index) => (
                             <li key={index} onClick={() => setCity(suggestion)} className='m-1 cursor-pointer'>{suggestion.Cities}, {suggestion.Country}</li>
                         ))}
