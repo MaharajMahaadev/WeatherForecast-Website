@@ -2,7 +2,8 @@
 export async function POST(request){
     try {
         const requestBody = await request.json();
-        const result = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${requestBody.Cities + "," + requestBody.iso2}&appid=${process.env.API_KEY}`);
+        const apiKey = process.env.API_KEY.slice(1, -1);
+        const result = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${requestBody.Cities + "," + requestBody.iso2}&appid=${apiKey}`);
         const res = await result.json();
 
         return new Response(res, {
