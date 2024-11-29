@@ -21,6 +21,8 @@ function App() {
       );
       const data = await response.json();
       useData(data.data);
+      console.log(data);
+      console.log(data,data1);
 
       const response1 = await fetch('/api/fetchdays', {
         method: 'POST',
