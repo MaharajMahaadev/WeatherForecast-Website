@@ -20,17 +20,14 @@ function App() {
         }
       );
       const data = await response.json();
-      console.log(data);
-      console.log(data.data);
       useData(data.data);
+
       const response1 = await fetch('/api/fetchdays', {
         method: 'POST',
         headers: { 'Content-Type' : 'application/json'},
         body: JSON.stringify(coord)
       });
       const data1 = await response1.json();
-      console.log(data1);
-      console.log(data1.data);
       useDatadays(data1.data);
     }
     catch (error) {
