@@ -39,7 +39,7 @@ function Search({ useCoord, usePlace }) {
                 body: JSON.stringify({city: temp.Cities, iso2: temp.iso2})
             });
             const res = await response.json();
-            useCoord([res[0].lat || 0, res[0].lon] || 0);
+            useCoord([res.data[0].lat || 0, res.data[0].lon] || 0);
         }
         catch (error) {
             console.log(error);
