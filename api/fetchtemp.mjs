@@ -6,6 +6,8 @@ export async function POST(request){
         const result = await fetch(url);
         const data = await result.json();
 
+        console.log(data);
+
         return new Response(data, {
             status: 200,
             headers: {"Content-Type" : "application/json"}
