@@ -1,6 +1,6 @@
 # Weather Forecast Website
 
-Welcome to the Weather Website project! This is a project aimed at creating a responsive website that provides detailed weather reports for various factors such as air quality, wind, sun, UV index, rain chance, and upcoming 7-day forecasts.
+Welcome to the Weather Website project! This is a project aimed at creating a responsive website that provides detailed weather reports for various factors such as air quality, wind, sun, UV index, rain chance, and upcoming 7-day forecasts. It's deployed on vercel and available at ([Live Website](https://weatherforecast-mm.vercel.app/)).
 
 # Table of Contents
 - Introduction
