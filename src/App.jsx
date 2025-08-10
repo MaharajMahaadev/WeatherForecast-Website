@@ -76,7 +76,7 @@ function App() {
     return (
       <body>
         <Navbar useCoord={useCoord} usePlace={usePlace} />
-        <main class="main-content" style={{backgroundImage: `linear-gradient(${currTime==="night"?"#74b9ff":"#2D3E50"}, ${currTime==="night"?weatherColorsNight[data?.weather[0]?.id]:weatherColorsDay[data?.weather[0]?.id]})`}}>
+        <main class="main-content" style={{backgroundImage: `linear-gradient(${currTime==="night"?weatherColorsNight[data?.weather[0]?.id]:weatherColorsDay[data?.weather[0]?.id]}, ${currTime==="night"?"#2D3E50":"#74b9ff"})`}}>
           <div class="container">
             <WeatherToday data={data} place={place} />
             <WeatherFiveDays dataDays={dataDays} />        
