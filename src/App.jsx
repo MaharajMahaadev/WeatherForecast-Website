@@ -11,6 +11,7 @@ function App() {
   const [bt, useBt] = useState(true);
   const [coord, useCoord] = useState([0, 0]);
   const [ place, usePlace ] = useState('Null Island');
+  const [currTime, useCurrTime] = useState("day");
 
   const val = async () => {
     try {
@@ -23,6 +24,13 @@ function App() {
       );
       const data = await response.json();
       useData(data);
+
+      if(data?.dt >= data?.sys?.sunrise && data?.dt < data?.sys?.sunset){
+        useCurrTime("day");
+      }
+      else{
+        useCurrTime("night");
+      }
 
       const response1 = await fetch('/api/fetchdays', {
         method: 'POST',
@@ -53,17 +61,6 @@ function App() {
   useEffect(() => {
     val();
   }, [coord]);
-
-  const [currTime, useCurrTime] = useState("");
-
-  useEffect(() =>  {
-    if(data?.dt >= data?.sys?.sunrise && data?.dt < data?.sys?.sunset){
-      useCurrTime("day");
-    }
-    else{
-      useCurrTime("night");
-    }
-  }, [data]);
 
   if(bt) {
     return (
