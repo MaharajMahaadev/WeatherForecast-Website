@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import Som from "./Som";
-import Search from "./Search";
-import LineChart from './LineChart';
+import LineChart from './sections/LineChart';
+import WeatherToday from './sections/WeatherToday'
+import WeatherFiveDays from './sections/WeatherFiveDays'
+import Navbar from './utils/Navbar';
+import { weatherColorsDay, weatherColorsNight } from './utils/data';
 
 function App() {
   const [data, useData] = useState({});
@@ -29,6 +31,16 @@ function App() {
       });
       const data1 = await response1.json();
       useDatadays(data1);
+
+      /*const response2 = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${coord[0]}&lon=${coord[1]}&units=metric&appid=`);
+      const data2 = await response2.json();
+
+      const response3 = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${coord[0]}&lon=${coord[1]}&units=metric&appid=`)
+      const data3 = await response3.json();
+      useData(data3);
+
+      useDatadays(data2);
+      console.log(data2);*/
     }
     catch (error) {
       console.log(error);
@@ -39,26 +51,41 @@ function App() {
   }
 
   useEffect(() => {
-    val()
+    val();
   }, [coord]);
 
-  if (bt) {
+  const [currTime, useCurrTime] = useState("");
+
+  useEffect(() =>  {
+    if(data?.dt >= data?.sys?.sunrise && data?.dt < data?.sys?.sunset){
+      useCurrTime("day");
+    }
+    else{
+      useCurrTime("night");
+    }
+  }, [data]);
+
+  if(bt) {
     return (
-      <body className='bg-gradient-to-b from-blue-300 to-yellow-200 p-10 w-full'>
-        <p>Loading, Please Wait!!!</p>
+      <body>
+        <div class="forecast-day">
+          <p class="section-title">Loading! Please Wait...</p>
+        </div>
       </body>
     )
   }
 
   else {
     return (
-      <body className='bg-gradient-to-b from-blue-300 to-yellow-200 p-10 w-full'>
-        <div className='inline-flex gap-[25%] items-center w-full p-2'>
-          <a href="/" className='w-2/12 font-extrabold text-yellow-200 text-xl p-2 bg-opacity-75'>Weather Forecast</a>
-          <Search useCoord={useCoord} usePlace={usePlace}/>
-        </div>
-        <Som data={data} dataDays={dataDays} place={place}/>
-        <LineChart dataDays={dataDays}/>
+      <body>
+        <Navbar useCoord={useCoord} usePlace={usePlace} />
+        <main class="main-content" style={{backgroundImage: `linear-gradient(${currTime==="night"?"#74b9ff":"#2D3E50"}, ${currTime==="night"?weatherColorsNight[data?.weather[0]?.id]:weatherColorsDay[data?.weather[0]?.id]})`}}>
+          <div class="container">
+            <WeatherToday data={data} place={place} />
+            <WeatherFiveDays dataDays={dataDays} />        
+            <LineChart dataDays={dataDays} />
+          </div>
+        </main>
       </body>
     )
   }

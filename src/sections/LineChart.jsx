@@ -18,8 +18,8 @@ const LineGraph = ({dataDays}) => {
   console.log(dayTemps);
   const canvasData = {
     datasets: [
-      {
-        borderColor: "skyblue",
+      { 
+        borderColor: "white",
         pointRadius: 1.5,
         lineTension: 0.4,
         data: dayTemps,
@@ -29,6 +29,8 @@ const LineGraph = ({dataDays}) => {
   };
 
   const options = {
+    responsive: true,
+    maintainAspectRatio: true,
     scales: {
       x: {
         grid: {
@@ -36,7 +38,9 @@ const LineGraph = ({dataDays}) => {
         },
         labels: dayDates,
         ticks: {
-          color: "black",
+          color: "white",
+          autoSkip: true,        
+          maxTicksLimit: 5,
         },
       },
       y: {
@@ -47,12 +51,10 @@ const LineGraph = ({dataDays}) => {
         max: maxTemp+1,
         ticks: {
           stepSize: 0.5,
-          color: "black ",
+          color: "white",
         },
       },
     },
-    maintainAspectRatio: true,
-    responsive: true,
     plugins: {
       legend: {
         display: false,
@@ -64,10 +66,12 @@ const LineGraph = ({dataDays}) => {
   };
 
   return (
-    <div className="min-w-[100%] min-h-[100vh] bg-white bg-opacity-30 p-10 mt-5 hover:shadow-2xl duration-700">
-      <p className="m-5 font-bold text-2xl">ForeCast of Upcoming Days</p>
-      <Line options={options} data={canvasData} />
-    </div>
+    <section class="chart-outer">
+      <h3 class="section-title">Forecast of Upcoming Days</h3>
+      <div class="chart-div">
+        <Line options={options} data={canvasData} />
+      </div>
+    </section>
   );
 };
 

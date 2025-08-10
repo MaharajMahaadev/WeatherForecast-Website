@@ -47,18 +47,18 @@ function Search({ useCoord, usePlace }) {
     }
 
     return (
-        <div className=''>
-            <input className="border-2 border-yellow-100 focus:ring-yellow-100 focus:ring-1 focus:outline-none" placeholder="Search Cities" onChange={funcCities} type="search"></input>
+        <>
+            <input type="text" class="search-input" placeholder="Search for a city..." onChange={funcCities}></input>
             {
                 suggestions.length > 0 && (
-                    <ul className='bg-blue-100 bg-opacity-95 z-10 absolute overflow-scroll h-[70vh]'>
+                    <div className='search-notification'>
                         {suggestions.map((suggestion, index) => (
-                            <li key={index} onClick={() => setCity(suggestion)} className='m-1 cursor-pointer'>{suggestion.Cities}, {suggestion.Country}</li>
+                            <p key={index} onClick={() => setCity(suggestion)}>{suggestion.Cities}, {suggestion.Country}</p>
                         ))}
-                    </ul>
+                    </div>
                 )
             }
-        </div>
+        </>
     )
 }
 
