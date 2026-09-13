@@ -1,3 +1,14 @@
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+@source inline("bg-slate-300");
+@source inline("bg-slate-500");
+@source inline("bg-slate-800");
+@source inline("bg-blue-300");
+@source inline("bg-blue-500");
+@source inline("bg-yellow-300");
+@source inline("bg-red-300");
+
 :root {
   /* Primitive Color Tokens */
   --color-white: rgba(255, 255, 255, 1);
